@@ -1,26 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <title>GPA Pro — High School GPA Calculator</title>
-    <meta name="description" content="Calculate your weighted and unweighted high school GPA. Supports AP, IB, Honors, and Dual Credit courses organized by semester." />
-    <meta property="og:title" content="GPA Pro — High School GPA Calculator" />
-    <meta property="og:description" content="Track weighted (5.0) and unweighted (4.0) GPA across all four years of high school." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="A private, customizable GPA and college-planning dashboard.">
+    <meta property="og:title" content="GPA Pro — Academic planning, made clear">
+    <meta property="og:description" content="Calculate GPA, test future scenarios, and organize college planning.">
+    <meta property="og:type" content="website">
+    <title>GPA Pro — Academic planning, made clear</title>
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./src/styles.css">
+    <link rel="stylesheet" href="./src/overrides.css">
     <script>
-      // Initialize theme before render to avoid flash
-      (function() {
-        const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      (() => {
+        const saved = localStorage.getItem('gpa-pro:theme');
+        const dark = saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
       })();
     </script>
-    <script type="module" crossorigin src="./assets/index-DyxPfbPZ.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-s0t2vvjy.css">
+    <script type="module" src="./src/app.js"></script>
   </head>
   <body>
-    <div id="root"></div>
+    <a class="skip-link" href="#workspace">Skip to content</a>
+    <div id="app"></div>
+    <noscript>GPA Pro needs JavaScript enabled to calculate and save your academic plan.</noscript>
   </body>
 </html>

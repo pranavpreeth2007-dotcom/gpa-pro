@@ -1,51 +1,85 @@
 # GPA Pro
 
-A browser-based high school GPA and college-planning dashboard.
+A privacy-first GPA and college-planning dashboard that runs entirely in the browser.
 
-## Features
+## GPA Pro 2.0
 
-- Weighted and unweighted GPA calculation
-- Semester-based course organization
-- AP, IB, Honors, and Dual Credit weighting
-- Transcript text import with preview
-- GPA trends, grade distribution, goal calculator, and graduation projection
-- College finder and application tracking
-- Scholarships and financial-aid tracking
-- Test scores, AP scores, activities, and awards tracking
-- CSV transcript export
-- GPA summary card image export
-- Light and dark themes
-- Local browser storage for user data
+GPA Pro is now an editable, modular source project instead of a minified production bundle. It uses browser-native ES modules, so there is no dependency installation or opaque build output.
+
+### Academics
+
+- Weighted and unweighted GPA with plus/minus grades
+- Credit-weighted or equal-course calculation
+- AP, IB, Honors, and Dual Credit bonuses
+- Configurable weighted-GPA cap
+- Freshman exclusion and core-course recalculation
+- Pass/fail and replaced-attempt handling
+- Completed and planned courses
+- Semester trends with text equivalents
+- Goal calculator and restorable scenarios
+
+### Planning and safety
+
+- Application, scholarship, test-score, and activity tracking
+- College links use official admissions pages and display a reference year
+- Versioned, validated local storage with automatic backup
+- Migration from the original GPA Pro storage keys
+- Full JSON backup and validated restore
+- Formula-safe CSV export
+- Duplicate-aware transcript preview
+- UUID record identifiers and input limits
+
+### Experience
+
+- Full-width 12-column desktop dashboard and responsive mobile navigation
+- Consistent light/dark theme
+- Keyboard focus, skip link, live announcements, reduced-motion support, and browser zoom
+- Installable/offline application shell
+- No external fonts, trackers, accounts, or backend
 
 ## Run locally
 
-This repository is a static site. Any static file server works:
-
 ```bash
-python3 -m http.server 5173
+npm start
 ```
 
-Then open http://localhost:5173.
+Open <http://localhost:5173>.
 
-Opening `index.html` directly may work, but a local server is recommended.
+## Test
 
-## Data and privacy
+Requires Node 20 or newer:
 
-GPA Pro stores entries in the browser's local storage. The repository does not include a backend, account system, or cloud database, so data is tied to the browser and device where it was entered. Clearing site data or changing browsers can remove access to saved entries.
+```bash
+npm test
+```
 
-## Deploy
+Tests cover core GPA calculations, plus/minus grades, exclusions, projections, transcript parsing, and CSV-formula neutralization.
 
-The site can be deployed to GitHub Pages. The included workflow publishes the repository root whenever changes reach `main`.
+## Architecture
 
-## Project structure
+```text
+src/app.js         UI, routing, and interactions
+src/calculator.js  Pure GPA and projection functions
+src/storage.js     Validation, migration, backup, and persistence
+src/importer.js    Transcript staging and duplicate detection
+src/exporter.js    Safe CSV and file downloads
+src/styles.css     Responsive visual system
+tests/             Node test suite
+sw.js              Offline cache
+```
 
-This repository currently contains the production build:
+The previous compiled assets remain recoverable in Git history but are not loaded by GPA Pro 2.0.
 
-- `index.html`: application entry point
-- `assets/`: bundled JavaScript, CSS, and storage helper files
+## Privacy and limitations
 
-The source project used to generate the bundle is not included yet. Contributions that reconstruct a maintainable source tree should preserve the current behavior and local-storage data format.
+Academic data stays in the current browser unless the user explicitly downloads a file. Clearing browser storage can remove it, so regular JSON backups are recommended.
+
+GPA policies vary by school. Users should configure the calculator to match their institution and verify important results manually. College requirements change; GPA Pro links to official sources instead of claiming to predict admission.
+
+## Deployment
+
+Pushes to `main` run the automated tests and deploy to GitHub Pages only when they pass.
 
 ## License
 
-No license has been declared yet. Add one before accepting external contributions or redistributing the code.
+No public reuse license has been granted. Add an explicit license before accepting external contributions.

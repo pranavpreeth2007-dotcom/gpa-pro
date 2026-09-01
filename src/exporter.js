@@ -1,0 +1,3 @@
+const safeCell=value=>{let text=String(value??'').replaceAll('"','""');if(/^[=+\-@]/.test(text))text=`'${text}`;return `"${text}"`;};
+export const coursesCsv=courses=>[['Course','Grade','Level','Credits','Year','Term','Subject','Planned'],...courses.map(c=>[c.name,c.grade,c.level,c.credits,c.year,c.term,c.subject,c.planned?'Yes':'No'])].map(row=>row.map(safeCell).join(',')).join('\r\n');
+export function download(content,filename,type='text/plain'){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=filename.replace(/[^a-z0-9._-]/gi,'-');link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
